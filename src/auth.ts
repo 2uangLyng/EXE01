@@ -1,10 +1,14 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { ZodError } from "zod";
+import Google from "next-auth/providers/google";
 import { signInSchema } from "./lib/zod";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
+    Google({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+    }),
     CredentialsProvider({
       name: "credentials",
       credentials: {
@@ -12,37 +16,29 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       authorize: async (credentials) => {
-        try {
-          // Kiểm tra dữ liệu đầu vào
-          const { email, password } = await signInSchema.parseAsync(
-            credentials
-          );
-          // console.log("email", email);
-          // console.log("password", password);
-          // User test cứng
-          const testUser = {
-            id: "1",
-            name: "Test User",
-            email: "voquanglinh999@gmail.com",
-            password: "test12345", // Mật khẩu test
-          };
+        // Kiểm tra dữ liệu đầu vào
+        const { email, password } = await signInSchema.parseAsync(credentials);
+        // console.log("email", email);
+        // console.log("password", password);
+        // User test cứng
+        const testUser = {
+          id: "1",
+          name: "Test User",
+          email: "voquanglinh999@gmail.com",
+          password: "test12345", // Mật khẩu test
+        };
 
-          // Kiểm tra email và password có khớp không
-          if (email !== testUser.email || password !== testUser.password) {
-            throw new Error("Tài khoản hoặc mật khẩu không hợp lệ !");
-          }
-
-          // Trả về user nếu đăng nhập thành công
-          return {
+        if (email === testUser.email && password === testUser.password) {
+          // Trả về thông tin user nếu đăng nhập thành công
+          const loggeinUser = {
             id: testUser.id,
             name: testUser.name,
             email: testUser.email,
           };
-        } catch (error) {
-          if (error instanceof ZodError) {
-            throw new Error("Dữ liệu nhập vào không hợp lệ.");
-          }
-          throw error;
+          return loggeinUser;
+        } else {
+          // Trả về null nếu đăng nhập không thành công
+          return null;
         }
       },
     }),
@@ -70,6 +66,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.email = token.email as string;
       }
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
 });
