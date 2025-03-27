@@ -3,25 +3,27 @@ import React, { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession, signIn, signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession(); // Lấy thông tin session
+  const pathname = usePathname(); // Lấy đường dẫn hiện tại
 
   const navBarData = [
-    "Trang chủ",
-    "Giới thiệu",
-    "Khám phá",
-    "Sản phẩm",
-    "Giỏ hàng",
-    "Liên hệ",
+    { title: "Trang chủ", link: "/" },
+    { title: "Giới thiệu", link: "/about" },
+    { title: "Khám phá", link: "/explore" },
+    { title: "Sản phẩm", link: "/products" },
+    { title: "Giỏ hàng", link: "/cart" },
+    { title: "Liên hệ", link: "/contact" }
   ];
 
   return (
     <nav className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#f8f9fa] to-transparent z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-4 gap-4">
         {/* Logo */}
-        <div>
+        <a href="/">
           <img
             alt="Saigon logo"
             className="h-[80px] w-[100px]"
@@ -29,17 +31,20 @@ function NavBar() {
             src="/images/logo.png"
             width="100"
           />
-        </div>
+        </a>
 
         {/* Navigation Menu */}
         <div className="items-center hidden lg:flex">
           <ul className="flex space-x-6 ml-6">
             {navBarData.map((item, index) => (
               <li key={index} className="relative group">
-                <a className="text-white" href="#">
-                  {item}
+                <a className={`${pathname === item.link ? 'font-bold' : 'text-black'}`} href={item.link}>
+                  {item.title}
                 </a>
-                <span className="absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                <span
+                  className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${pathname === item.link ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                    }`}
+                ></span>
               </li>
             ))}
           </ul>
@@ -93,10 +98,13 @@ function NavBar() {
             <ul className="space-y-4 py-4">
               {navBarData.map((item, index) => (
                 <li key={index} className="relative group">
-                  <a className="text-gray-700 block" href="#">
-                    {item}
+                  <a className={`${pathname === item.link ? "font-bold" : "text-black"} block`} href={item.link}>
+                    {item.title}
                   </a>
-                  <span className="absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                  <span
+                    className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${pathname === item.link ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                  ></span>
                 </li>
               ))}
             </ul>
