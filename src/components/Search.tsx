@@ -4,12 +4,12 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 function SearchSection() {
   return (
-    <section className="">
+    <section className="w-full">
       <div className="pt-10 w-full flex flex-col items-center">
         {/* Ô tìm kiếm */}
         <div className="relative w-3/4 md:w-1/2 lg:max-w-[900px]">
           <input
-            className="w-full border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-full border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-orange-500 caret-black"
             placeholder="Tìm kiếm"
             type="text"
           />

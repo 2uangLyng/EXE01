@@ -1,22 +1,31 @@
 "use client";
 import React, { useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  HeartIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/outline";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { useCartStore } from "@/store/useCartStore";
+import { useWishlistStore } from "@/store/useWhistlist";
+import { Button } from "./ui/button";
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { data: session } = useSession(); // Lấy thông tin session
-  const pathname = usePathname(); // Lấy đường dẫn hiện tại
+  const { data: session } = useSession();
+  const pathname = usePathname();
+  const cartItems = useCartStore((state) => state.items);
+  const wishlistItems = useWishlistStore((state) => state.items);
 
   const navBarData = [
     { title: "Trang chủ", link: "/" },
     { title: "Giới thiệu", link: "/about" },
     { title: "Khám phá", link: "/explore" },
     { title: "Sản phẩm", link: "/products" },
-    { title: "Giỏ hàng", link: "/cart" },
-    { title: "Liên hệ", link: "/contact" }
+    { title: "Liên hệ", link: "/contact" },
   ];
 
   return (
@@ -27,9 +36,9 @@ function NavBar() {
           <img
             alt="Saigon logo"
             className="h-[80px] w-[100px]"
-            height="100"
             src="/images/logo.png"
             width="100"
+            height="100"
           />
         </a>
 
@@ -38,12 +47,20 @@ function NavBar() {
           <ul className="flex space-x-6 ml-6">
             {navBarData.map((item, index) => (
               <li key={index} className="relative group">
-                <a className={`${pathname === item.link ? 'font-bold' : 'text-black'}`} href={item.link}>
+                <a
+                  className={`${
+                    pathname === item.link ? "font-bold" : "text-black"
+                  } block`}
+                  href={item.link}
+                >
                   {item.title}
                 </a>
                 <span
-                  className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${pathname === item.link ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`}
+                  className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${
+                    pathname === item.link
+                      ? "scale-x-100"
+                      : "scale-x-0 group-hover:scale-x-100"
+                  }`}
                 ></span>
               </li>
             ))}
@@ -51,26 +68,45 @@ function NavBar() {
         </div>
 
         {/* User Auth Section */}
-        <div className="items-center space-x-4 hidden lg:flex">
+        <div className="items-center hidden lg:flex space-x-10">
+          {/* Icons Section */}
+          <div className="items-center space-x-6 hidden lg:flex">
+            <a href="/wishlist" className="relative">
+              <HeartIcon className="h-6 w-6" />
+              {wishlistItems.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                  {wishlistItems.length}
+                </span>
+              )}
+            </a>
+            <a href="/cart" className="relative">
+              <ShoppingCartIcon className="h-6 w-6" />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full px-2 py-1">
+                  {cartItems.length}
+                </span>
+              )}
+            </a>
+          </div>
           {session ? (
             <div className="flex items-center space-x-4">
               <span className="text-black">
                 Chào, <strong>{session.user?.name}</strong>!
               </span>
-              <button
+              <Button
                 onClick={() => signOut()}
-                className="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded-2xl"
+                className="bg-red-500 text-white py-1 px-4 rounded-2xl cursor-pointer"
               >
                 Đăng xuất
-              </button>
+              </Button>
             </div>
           ) : (
-            <button
+            <Button
               onClick={() => signIn()}
-              className="bg-transparent hover:bg-blue-500 text-blue-500 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded-2xl"
+              className="bg-blue-500 text-white py-1 px-4 rounded-2xl cursor-pointer"
             >
               Đăng kí / Đăng nhập
-            </button>
+            </Button>
           )}
         </div>
 
@@ -80,59 +116,87 @@ function NavBar() {
             <Bars3Icon className="h-6 text-orange-400 cursor-pointer" />
           </button>
         </div>
-      </div>
-
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg p-6 flex flex-col z-50"
-          >
-            <button onClick={() => setIsOpen(false)} className="self-end mb-4">
-              <XMarkIcon className="h-6 text-gray-700 cursor-pointer" />
-            </button>
-            <ul className="space-y-4 py-4">
-              {navBarData.map((item, index) => (
-                <li key={index} className="relative group">
-                  <a className={`${pathname === item.link ? "font-bold" : "text-black"} block`} href={item.link}>
-                    {item.title}
-                  </a>
-                  <span
-                    className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${pathname === item.link ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                      }`}
-                  ></span>
-                </li>
-              ))}
-            </ul>
-            <hr />
-            {/* Hiển thị thông tin user */}
-            {session ? (
-              <div className="py-5 flex flex-col gap-y-5">
-                <h3 className="text-black">
-                  Chào, <strong>{session.user?.name}</strong>!
-                </h3>
-                <button
-                  onClick={() => signOut()}
-                  className="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded-2xl"
-                >
-                  Đăng xuất
-                </button>
-              </div>
-            ) : (
+        {/* Mobile Drawer */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
+              className="fixed top-0 right-0 w-64 h-full bg-white shadow-lg p-6 flex flex-col z-50"
+            >
               <button
-                onClick={() => signIn()}
-                className="bg-transparent hover:bg-blue-500 text-blue-500 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded-2xl mt-5"
+                onClick={() => setIsOpen(false)}
+                className="self-end mb-4"
               >
-                Đăng kí / Đăng nhập
+                <XMarkIcon className="h-6 text-gray-700 cursor-pointer" />
               </button>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <ul className="space-y-4 py-4">
+                {navBarData.map((item, index) => (
+                  <li key={index} className="relative group">
+                    <a
+                      className={`${
+                        pathname === item.link ? "font-bold" : "text-black"
+                      } block`}
+                      href={item.link}
+                    >
+                      {item.title}
+                    </a>
+                    <span
+                      className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${
+                        pathname === item.link
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      }`}
+                    ></span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center space-x-6 lg:hidden my-5">
+                <a href="/wishlist" className="relative">
+                  <HeartIcon className="h-6 w-6" />
+                  {wishlistItems.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
+                      {wishlistItems.length}
+                    </span>
+                  )}
+                </a>
+                <a href="/cart" className="relative">
+                  <ShoppingCartIcon className="h-6 w-6" />
+                  {cartItems.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full px-2 py-1">
+                      {cartItems.length}
+                    </span>
+                  )}
+                </a>
+              </div>
+              <hr />
+              {/* Hiển thị thông tin user */}
+              {session ? (
+                <div className="py-5 flex flex-col gap-y-5">
+                  <h3 className="text-black">
+                    Chào, <strong>{session.user?.name}</strong>!
+                  </h3>
+                  <button
+                    onClick={() => signOut()}
+                    className="bg-transparent hover:bg-red-500 text-red-500 font-semibold hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded-2xl"
+                  >
+                    Đăng xuất
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => signIn()}
+                  className="bg-transparent hover:bg-blue-500 text-blue-500 font-semibold hover:text-white py-1 px-4 border border-blue-500 hover:border-transparent rounded-2xl mt-5"
+                >
+                  Đăng kí / Đăng nhập
+                </button>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </nav>
   );
 }

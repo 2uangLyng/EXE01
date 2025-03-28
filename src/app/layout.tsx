@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
+import Providers from "./providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -16,21 +16,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "À Sài Gòn",
-  description: "À Sài Gòn - Chuyên cung cấp các sản phẩm thủ công, handmade, thiết kế riêng tại Sài Gòn",
+  description:
+    "À Sài Gòn - Chuyên cung cấp các sản phẩm thủ công, handmade, thiết kế riêng tại Sài Gòn",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Toaster />
-        <SessionProvider>{children}</SessionProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -8,7 +8,7 @@ import { FaGoogle, FaFacebookF, FaLinkedinIn, FaGithub } from "react-icons/fa";
 import { toast } from "react-hot-toast";
 import { signIn } from "next-auth/react";
 
-export function SignIn({ toggle }: { toggle: () => void }) {
+export function SignIn({}: { toggle: () => void }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
