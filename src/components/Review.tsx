@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 function Review() {
@@ -7,7 +8,7 @@ function Review() {
         {/* Phần Review 1 */}
         <div className="flex gap-4 w-full md:w-1/2">
           <div className="shrink-0">
-            <img
+            <Image
               src="https://storage.googleapis.com/a1aa/image/VH8DNVOCvVTgyPbeT3R0cXMgbCkZNOLoBy26qmoMFbc.jpg"
               alt="Review Image"
               width={200}
@@ -29,7 +30,7 @@ function Review() {
         {/* Phần Review 2 */}
         <div className="flex gap-4 w-full md:w-1/2">
           <div className="shrink-0">
-            <img
+            <Image
               src="https://storage.googleapis.com/a1aa/image/VH8DNVOCvVTgyPbeT3R0cXMgbCkZNOLoBy26qmoMFbc.jpg"
               alt="Review Image"
               width={200}
@@ -51,7 +52,7 @@ function Review() {
 
       {/* Ảnh nền phía dưới */}
       <div className="w-full pt-5">
-        <img
+        <Image
           alt="Saigon cityscape with sunset"
           className="w-full h-80 lg:h-[800px] object-cover"
           height="600"

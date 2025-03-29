@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 function ProductHomePage() {
@@ -30,7 +31,7 @@ function ProductHomePage() {
             },
           ].map((place, index) => (
             <div key={index} className="text-center flex-shrink-0 w-64">
-              <img
+              <Image
                 src={place.img}
                 alt={place.title}
                 className="w-full rounded-lg h-96 object-cover"

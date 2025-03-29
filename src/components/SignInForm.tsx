@@ -41,7 +41,7 @@ export function SignIn({}: { toggle: () => void }) {
         toast.success("Đăng nhập thành công! 🎉");
         router.push(result?.url || "/");
       }
-    } catch (error) {
+    } catch {
       toast.error("Có lỗi xảy ra. Vui lòng thử lại.");
     } finally {
       setLoading(false);

@@ -17,6 +17,7 @@ import {
 import { useCartStore } from "@/store/useCartStore";
 import toast from "react-hot-toast";
 import { useWishlistStore } from "@/store/useWhistlist";
+import Image from "next/image";
 
 function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { products } = useProducts();
@@ -155,7 +156,7 @@ function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
         {/* Hình ảnh sản phẩm */}
         <div className="lg:w-1/2 lg:pl-8 mt-8 lg:mt-0 relative">
           <div className="relative w-[400px] h-[400px] mx-auto">
-            <img
+            <Image
               alt={product.name}
               className="w-full h-full rounded-4xl object-cover"
               src={product.image}

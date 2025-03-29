@@ -12,6 +12,8 @@ import { usePathname } from "next/navigation";
 import { useCartStore } from "@/store/useCartStore";
 import { useWishlistStore } from "@/store/useWhistlist";
 import { Button } from "./ui/button";
+import Link from "next/link";
+import Image from "next/image";
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,29 +34,29 @@ function NavBar() {
     <nav className="absolute top-0 left-0 w-full bg-gradient-to-b from-[#f8f9fa] to-transparent z-50">
       <div className="container mx-auto flex justify-between items-center py-4 px-4 gap-4">
         {/* Logo */}
-        <a href="/">
-          <img
+        <Link href="/">
+          <Image
             alt="Saigon logo"
             className="h-[80px] w-[100px]"
             src="/images/logo.png"
             width="100"
             height="100"
           />
-        </a>
+        </Link>
 
         {/* Navigation Menu */}
         <div className="items-center hidden lg:flex">
           <ul className="flex space-x-6 ml-6">
             {navBarData.map((item, index) => (
               <li key={index} className="relative group">
-                <a
+                <Link
                   className={`${
                     pathname === item.link ? "font-bold" : "text-black"
                   } block`}
                   href={item.link}
                 >
                   {item.title}
-                </a>
+                </Link>
                 <span
                   className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${
                     pathname === item.link
@@ -71,22 +73,22 @@ function NavBar() {
         <div className="items-center hidden lg:flex space-x-10">
           {/* Icons Section */}
           <div className="items-center space-x-6 hidden lg:flex">
-            <a href="/wishlist" className="relative">
+            <Link href="/wishlist" className="relative">
               <HeartIcon className="h-6 w-6" />
               {wishlistItems.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
                   {wishlistItems.length}
                 </span>
               )}
-            </a>
-            <a href="/cart" className="relative">
+            </Link>
+            <Link href="/cart" className="relative">
               <ShoppingCartIcon className="h-6 w-6" />
               {cartItems.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full px-2 py-1">
                   {cartItems.length}
                 </span>
               )}
-            </a>
+            </Link>
           </div>
           {session ? (
             <div className="flex items-center space-x-4">
@@ -135,14 +137,14 @@ function NavBar() {
               <ul className="space-y-4 py-4">
                 {navBarData.map((item, index) => (
                   <li key={index} className="relative group">
-                    <a
+                    <Link
                       className={`${
                         pathname === item.link ? "font-bold" : "text-black"
                       } block`}
                       href={item.link}
                     >
                       {item.title}
-                    </a>
+                    </Link>
                     <span
                       className={`absolute left-0 bottom-0 w-full h-0.5 bg-orange-500 transition-transform ${
                         pathname === item.link
@@ -154,22 +156,22 @@ function NavBar() {
                 ))}
               </ul>
               <div className="flex items-center space-x-6 lg:hidden my-5">
-                <a href="/wishlist" className="relative">
+                <Link href="/wishlist" className="relative">
                   <HeartIcon className="h-6 w-6" />
                   {wishlistItems.length > 0 && (
                     <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-2 py-1">
                       {wishlistItems.length}
                     </span>
                   )}
-                </a>
-                <a href="/cart" className="relative">
+                </Link>
+                <Link href="/cart" className="relative">
                   <ShoppingCartIcon className="h-6 w-6" />
                   {cartItems.length > 0 && (
                     <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs rounded-full px-2 py-1">
                       {cartItems.length}
                     </span>
                   )}
-                </a>
+                </Link>
               </div>
               <hr />
               {/* Hiển thị thông tin user */}

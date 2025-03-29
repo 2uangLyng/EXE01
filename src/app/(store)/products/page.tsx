@@ -3,18 +3,19 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useCategories } from "@/app/hooks/useCategories";
-import { useProducts } from "@/app/hooks/useProducts";
+// import { useProducts } from "@/app/hooks/useProducts";
+import Image from "next/image";
 
 function ProductPage() {
   const { categories, loading } = useCategories();
-  const { products } = useProducts();
+  // const { products } = useProducts();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const uniqueCategories = Array.from(new Set(categories));
 
-  const filteredProducts = selectedCategory
-    ? products.filter((product) => product.category === selectedCategory)
-    : products;
+  // const filteredProducts = selectedCategory
+  //   ? products.filter((product) => product.category === selectedCategory)
+  //   : products;
 
   return (
     <div className="pt-[120px] max-w-[1440px] mx-auto">
@@ -24,7 +25,7 @@ function ProductPage() {
 
       {/* Banner */}
       <div className="relative p-4">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1613339038444-ca6b1e8eb7b4?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGx1c2h8ZW58MHx8MHx8fDA%3D"
           alt="Plush Toy"
           className="w-full h-[250px] mx-auto rounded-2xl object-cover sm:h-[300px] md:h-[400px] lg:h-[500px] lg:w-[1440px]"

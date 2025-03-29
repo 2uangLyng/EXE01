@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 function SearchSection() {
   return (
@@ -62,7 +63,7 @@ function SearchSection() {
               },
             ].map((place, index) => (
               <div key={index} className="text-center flex-shrink-0 w-64">
-                <img
+                <Image
                   src={place.img}
                   alt={place.title}
                   className="w-full rounded-lg h-96 object-cover"

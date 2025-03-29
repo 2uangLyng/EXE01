@@ -26,7 +26,7 @@ function Step2({
       await new Promise((resolve) => setTimeout(resolve, 2000));
       alert("Thanh toán thành công!");
       setStep(3); // Chuyển sang bước hoàn tất
-    } catch (error) {
+    } catch {
       alert("Thanh toán thất bại. Vui lòng thử lại.");
     } finally {
       setIsPaying(false);

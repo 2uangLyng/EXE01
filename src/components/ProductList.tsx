@@ -2,14 +2,15 @@
 import { useCategories } from "@/app/hooks/useCategories";
 import { useProducts } from "@/app/hooks/useProducts";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import { useRouter } from "next/navigation"; // Import useRouter
 import React, { useState } from "react";
 
 function ProductList() {
-  const { categories, loading } = useCategories();
+  const { categories } = useCategories();
   const { products } = useProducts();
   const router = useRouter(); // Khai báo useRouter
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory] = useState<string | null>(null);
 
   const uniqueCategories = Array.from(new Set(categories));
 
@@ -50,7 +51,7 @@ function ProductList() {
                     className="text-start flex flex-col items-center mx-auto cursor-pointer"
                     onClick={() => router.push(`/products/${product.slug}`)} // Điều hướng khi click
                   >
-                    <img
+                    <Image
                       alt={product.name}
                       className="mb-2 w-[300px] h-[450px] object-cover rounded-2xl"
                       height="450"

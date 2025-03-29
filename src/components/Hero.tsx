@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -6,7 +7,7 @@ function Hero() {
   return (
     <section className="w-full">
       <div className="relative">
-        <img
+        <Image
           alt="Saigon cityscape with sunset"
           className="w-full h-80 lg:h-[650px] object-cover"
           height="600"

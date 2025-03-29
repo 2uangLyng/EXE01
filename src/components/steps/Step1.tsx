@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ShippingOption } from "@/types/shipping";
 import { useCartStore } from "@/store/useCartStore";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 function Step1({
   setStep,
@@ -65,7 +66,7 @@ function Step1({
                   key={uniqueKey}
                   className="flex items-center justify-between p-4 border-b"
                 >
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
                     className="w-30 h-30 cursor-pointer rounded-2xl"
