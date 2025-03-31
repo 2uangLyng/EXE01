@@ -1,10 +1,10 @@
-import { Link } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-[#023048] text-white">
+    <footer className="bg-[#023048] text-white ">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
@@ -13,6 +13,8 @@ function Footer() {
                 src="https://flowbite.com/docs/images/logo.svg"
                 className="h-8 me-3"
                 alt="FlowBite Logo"
+                width={24}
+                height={24}
               />
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                 Flowbite
@@ -26,17 +28,17 @@ function Footer() {
               </h2>
               <ul className="text-white font-medium">
                 <li className="mb-4">
-                  <a href="https://flowbite.com/" className="hover:underline">
+                  <Link href="https://flowbite.com/" className="hover:underline">
                     Flowbite
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="https://tailwindcss.com/"
                     className="hover:underline"
                   >
                     Tailwind CSS
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -46,20 +48,20 @@ function Footer() {
               </h2>
               <ul className="text-white font-medium">
                 <li className="mb-4">
-                  <a
+                  <Link
                     href="https://github.com/themesberg/flowbite"
                     className="hover:underline"
                   >
                     Github
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="https://discord.gg/4eeurUVvTy"
                     className="hover:underline"
                   >
                     Discord
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -69,14 +71,14 @@ function Footer() {
               </h2>
               <ul className="text-white font-medium">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline">
+                  <Link href="#" className="hover:underline">
                     Terms & Conditions
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -86,9 +88,9 @@ function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-white sm:text-center">
             © 2023{" "}
-            <a href="https://flowbite.com/" className="hover:underline">
+            <Link href="https://flowbite.com/" className="hover:underline">
               Flowbite™
-            </a>
+            </Link>
             . All Rights Reserved.
           </span>
         </div>

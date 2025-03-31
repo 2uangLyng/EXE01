@@ -99,9 +99,8 @@ function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
               {product.colors.map((color) => (
                 <div
                   key={color.value} // ✅ Dùng giá trị màu làm key
-                  className={`w-6 h-6 rounded-full border cursor-pointer ${
-                    selectedColor === color.value ? "ring-2 ring-black" : ""
-                  }`}
+                  className={`w-6 h-6 rounded-full border cursor-pointer ${selectedColor === color.value ? "ring-2 ring-black" : ""
+                    }`}
                   style={{ backgroundColor: color.value }} // ✅ Lấy `value` làm màu nền
                   onClick={() => setSelectedColor(color.value)}
                   title={color.label} // ✅ Hiển thị tên màu khi hover
@@ -117,11 +116,10 @@ function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
               {product.sizes.map((size) => (
                 <button
                   key={size}
-                  className={`px-4 py-2 border rounded cursor-pointer ${
-                    selectedSize === size
-                      ? "bg-black text-white border-black"
-                      : "border-gray-400"
-                  }`}
+                  className={`px-4 py-2 border rounded cursor-pointer ${selectedSize === size
+                    ? "bg-black text-white border-black"
+                    : "border-gray-400"
+                    }`}
                   onClick={() => setSelectedSize(size)}
                 >
                   {size}
@@ -160,14 +158,15 @@ function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
               alt={product.name}
               className="w-full h-full rounded-4xl object-cover"
               src={product.image}
+              width={400}
+              height={400}
             />
             {/* Nút yêu thích */}
             <HeartIcon
-              className={`w-8 h-8 absolute top-4 right-4 cursor-pointer transition ${
-                favorites.some((fav) => fav.id === product.id)
-                  ? "text-red-500 fill-red-500"
-                  : "text-white"
-              }`}
+              className={`w-8 h-8 absolute top-4 right-4 cursor-pointer transition ${favorites.some((fav) => fav.id === product.id)
+                ? "text-red-500 fill-red-500"
+                : "text-white"
+                }`}
               onClick={handleToggleFavorite}
             />
           </div>

@@ -29,6 +29,8 @@ function ProductPage() {
           src="https://images.unsplash.com/photo-1613339038444-ca6b1e8eb7b4?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGx1c2h8ZW58MHx8MHx8fDA%3D"
           alt="Plush Toy"
           className="w-full h-[250px] mx-auto rounded-2xl object-cover sm:h-[300px] md:h-[400px] lg:h-[500px] lg:w-[1440px]"
+          width={1440}
+          height={250}
         />
         <div className="absolute bottom-10 right-10 md:right-20 lg:right-10">
           <Button
@@ -49,9 +51,8 @@ function ProductPage() {
           <>
             {/* "Tất cả" button */}
             <button
-              className={`bg-gray-200 px-4 py-2 rounded-lg font-bold transition ${
-                selectedCategory === null ? "bg-blue-500 text-white" : ""
-              }`}
+              className={`bg-gray-200 px-4 py-2 rounded-lg font-bold transition ${selectedCategory === null ? "bg-blue-500 text-white" : ""
+                }`}
               onClick={() => setSelectedCategory(null)}
             >
               Tất cả
@@ -59,9 +60,8 @@ function ProductPage() {
             {uniqueCategories.map((category) => (
               <button
                 key={category}
-                className={`bg-gray-200 px-4 py-2 rounded-lg font-bold transition ${
-                  selectedCategory === category ? "bg-blue-500 text-white" : ""
-                }`}
+                className={`bg-gray-200 px-4 py-2 rounded-lg font-bold transition ${selectedCategory === category ? "bg-blue-500 text-white" : ""
+                  }`}
                 onClick={() => setSelectedCategory(category)}
               >
                 {category}

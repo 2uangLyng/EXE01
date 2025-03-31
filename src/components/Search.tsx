@@ -67,6 +67,8 @@ function SearchSection() {
                   src={place.img}
                   alt={place.title}
                   className="w-full rounded-lg h-96 object-cover"
+                  width={256}
+                  height={384}
                 />
                 <h3 className="mt-2 text-lg font-semibold text-gray-800">
                   {place.title}
